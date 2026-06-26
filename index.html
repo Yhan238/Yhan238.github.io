@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GBX Tech – Soluciones Tecnológicas</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue:      #0066FF;
+    --blue-light:#3B8BFF;
+    --cyan:      #00C8FF;
+    --dark:      #050C1A;
+    --dark2:     #0A1628;
+    --dark3:     #0D1F3C;
+    --gray-bg:   #F5F7FA;
+    --white:     #FFFFFF;
+    --text:      #1A2233;
+    --text-light:#5A6A85;
+    --border:    #E2E8F0;
+    --font:      'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font); color: var(--text); background: var(--white); }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--dark);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 64px;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-icon {
+    width: 42px; height: 42px;
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 18px; color: #fff;
+    letter-spacing: -1px;
+  }
+  .logo-text { display: flex; flex-direction: column; line-height: 1; }
+  .logo-text span:first-child { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: 2px; }
+  .logo-text span:last-child  { font-size: 9px; color: var(--cyan); letter-spacing: 3px; text-transform: uppercase; }
+
+  .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,.75); text-decoration: none; font-size: 13px;
+    font-weight: 500; padding: 6px 14px; border-radius: 4px;
+    transition: color .2s;
+    display: flex; align-items: center; gap: 4px;
+  }
+  .nav-links a:hover { color: #fff; }
+  .nav-links a.active { color: var(--cyan); }
+  .nav-links a .arrow { font-size: 10px; opacity: .6; }
+
+  .btn-contact {
+    background: var(--blue); color: #fff; border: none; cursor: pointer;
+    font: 600 13px var(--font); padding: 9px 22px; border-radius: 5px;
+    text-decoration: none; transition: background .2s;
+  }
+  .btn-contact:hover { background: var(--blue-light); }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #020917 0%, #041230 40%, #061a45 100%);
+    min-height: 560px; position: relative; overflow: hidden;
+    display: flex; align-items: center;
+    padding: 80px 48px;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 75% 50%, rgba(0,100,255,.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 85% 30%, rgba(0,200,255,.10) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; opacity: .06;
+    background-image: linear-gradient(rgba(0,150,255,.5) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0,150,255,.5) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  /* Cloud SVG decoration */
+  .hero-cloud {
+    position: absolute; right: 80px; top: 50%; transform: translateY(-50%);
+    width: 380px; opacity: .85; pointer-events: none;
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 560px; }
+  .hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 3px; color: rgba(255,255,255,.55); text-transform: uppercase; margin-bottom: 18px; }
+  .hero h1 { font-size: clamp(36px,5vw,60px); font-weight: 900; color: #fff; line-height: 1.05; margin-bottom: 20px; }
+  .hero h1 .accent { color: var(--cyan); }
+  .hero p { font-size: 15px; color: rgba(255,255,255,.65); line-height: 1.7; max-width: 440px; margin-bottom: 36px; }
+
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--blue); color: #fff; border: none; cursor: pointer;
+    font: 600 13px var(--font); padding: 12px 24px; border-radius: 5px;
+    display: flex; align-items: center; gap: 8px; text-decoration: none;
+    transition: background .2s;
+  }
+  .btn-primary:hover { background: var(--blue-light); }
+  .btn-outline {
+    background: transparent; color: #fff;
+    border: 1.5px solid rgba(255,255,255,.35);
+    font: 600 13px var(--font); padding: 12px 24px; border-radius: 5px;
+    cursor: pointer; text-decoration: none; transition: border-color .2s, color .2s;
+  }
+  .btn-outline:hover { border-color: #fff; }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--dark2);
+    display: flex; justify-content: space-around; align-items: center;
+    padding: 28px 48px; gap: 16px; flex-wrap: wrap;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+  }
+  .stat { display: flex; align-items: center; gap: 14px; }
+  .stat-icon {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(0,100,255,.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .stat-info .number { font-size: 22px; font-weight: 800; color: #fff; }
+  .stat-info .label  { font-size: 11px; color: rgba(255,255,255,.5); margin-top: 2px; }
+
+  /* ── SECTION SHARED ── */
+  .section { padding: 80px 48px; }
+  .section-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--blue); margin-bottom: 14px; }
+  .section-title { font-size: clamp(26px,3vw,38px); font-weight: 800; line-height: 1.15; color: var(--text); }
+  .section-body  { font-size: 15px; color: var(--text-light); line-height: 1.75; max-width: 500px; }
+
+  /* ── SERVICES ── */
+  .services-header {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px 80px;
+    align-items: start; margin-bottom: 56px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .service-card {
+    padding: 32px 24px;
+    border-right: 1px solid var(--border);
+    transition: box-shadow .2s;
+  }
+  .service-card:last-child { border-right: none; }
+  .service-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.08); }
+
+  .service-icon { width: 52px; height: 52px; margin-bottom: 18px; }
+  .service-icon img { width: 100%; }
+
+  /* SVG icon replacements */
+  .svc-icon {
+    width: 52px; height: 52px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; margin-bottom: 18px;
+  }
+  .svc-m365  { background: linear-gradient(135deg,#ea3d2f,#b61f69,#1e6ed6,#28a8e0); }
+  .svc-azure { background: linear-gradient(135deg,#008AD7,#0072C6); }
+  .svc-sec   { background: linear-gradient(135deg,#1a52e0,#0a3db5); }
+  .svc-bk    { background: linear-gradient(135deg,#1e88e5,#0d6efd); }
+  .svc-uc    { background: linear-gradient(135deg,#7c3aed,#a855f7); }
+
+  .service-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 14px; }
+  .service-card ul { list-style: none; padding: 0; }
+  .service-card ul li { font-size: 12px; color: var(--text-light); padding: 3px 0; position: relative; padding-left: 12px; }
+  .service-card ul li::before { content: '•'; position: absolute; left: 0; color: var(--blue); }
+  .service-card .ver-mas { display: inline-flex; align-items: center; gap: 4px; margin-top: 16px; font-size: 12px; font-weight: 600; color: var(--blue); text-decoration: none; }
+  .service-card .ver-mas:hover { gap: 8px; }
+
+  /* ── WHY GBX ── */
+  .why-section {
+    background: linear-gradient(135deg, #050e20 0%, #071430 50%, #0a1f4a 100%);
+    padding: 80px 48px;
+    position: relative; overflow: hidden;
+  }
+  .why-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 50% 70% at 30% 50%, rgba(0,100,255,.12) 0%, transparent 70%);
+  }
+  .why-inner {
+    display: grid; grid-template-columns: 380px 1fr; gap: 80px; align-items: start;
+    position: relative; z-index: 2;
+  }
+  .why-left .section-eyebrow { color: var(--cyan); }
+  .why-left h2 { font-size: clamp(28px,3vw,40px); font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 20px; }
+  .why-left p  { font-size: 14px; color: rgba(255,255,255,.6); line-height: 1.75; margin-bottom: 32px; }
+  .btn-why {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1.5px solid rgba(255,255,255,.3); color: #fff; font: 600 12px var(--font);
+    padding: 11px 22px; border-radius: 5px; text-decoration: none;
+    text-transform: uppercase; letter-spacing: 1px; transition: border-color .2s;
+  }
+  .btn-why:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .why-card {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 10px; padding: 28px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .why-icon { font-size: 28px; }
+  .why-card h4 { font-size: 14px; font-weight: 700; color: #fff; }
+  .why-card p  { font-size: 12px; color: rgba(255,255,255,.55); line-height: 1.6; }
+
+  /* ── PARTNERS ── */
+  .partners { padding: 70px 48px; background: var(--white); }
+  .partners-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
+    margin-bottom: 48px;
+  }
+  .partners-right p { font-size: 14px; color: var(--text-light); line-height: 1.75; }
+  .partner-logos { display: flex; align-items: center; gap: 48px; flex-wrap: wrap; }
+  .partner-logo {
+    display: flex; align-items: center; gap: 8px; opacity: .7; transition: opacity .2s;
+  }
+  .partner-logo:hover { opacity: 1; }
+  .partner-logo span { font-size: 13px; font-weight: 600; color: var(--text); }
+
+  /* colored squares for partner logos */
+  .ms-logo { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; width: 22px; }
+  .ms-logo span { display: block; height: 10px; border-radius: 1px; }
+
+  /* ── CASES ── */
+  .cases {
+    padding: 80px 48px;
+    display: grid; grid-template-columns: 420px 1fr; gap: 60px; align-items: center;
+    background: var(--gray-bg);
+  }
+  .cases-left .section-eyebrow { color: var(--blue); }
+  .cases-left h2  { font-size: clamp(26px,3vw,38px); font-weight: 800; margin-bottom: 18px; }
+  .cases-left p   { font-size: 14px; color: var(--text-light); line-height: 1.75; margin-bottom: 28px; }
+  .btn-cases {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 1.5px solid var(--blue); color: var(--blue);
+    font: 600 12px var(--font); padding: 11px 22px; border-radius: 5px;
+    text-decoration: none; text-transform: uppercase; letter-spacing: 1px;
+    transition: background .2s, color .2s;
+  }
+  .btn-cases:hover { background: var(--blue); color: #fff; }
+
+  .cases-right {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border-radius: 10px; overflow: hidden;
+  }
+  .testimonial-card {
+    background: var(--dark3);
+    padding: 40px;
+    position: relative;
+    grid-column: 1 / 3;
+  }
+  .testimonial-card .quote-mark { font-size: 56px; color: var(--blue); font-family: Georgia, serif; line-height: 1; margin-bottom: 8px; }
+  .testimonial-card p { font-size: 14px; color: rgba(255,255,255,.8); line-height: 1.75; }
+  .testimonial-card cite { display: block; margin-top: 20px; font-size: 12px; color: var(--cyan); font-style: normal; font-weight: 600; }
+  .testimonial-dots { display: flex; gap: 6px; margin-top: 20px; }
+  .testimonial-dots span { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.25); }
+  .testimonial-dots span.active { background: var(--blue); }
+
+  /* city image placeholder */
+  .cases-img {
+    grid-column: 2;
+    background: linear-gradient(135deg,#0a1628,#162040);
+    min-height: 200px; position: relative; overflow: hidden;
+    display: flex; align-items: flex-end;
+  }
+
+  /* ── CTA BANNER ── */
+  .cta-banner {
+    background: linear-gradient(135deg, var(--blue) 0%, #0040BB 100%);
+    padding: 48px 80px;
+    display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    flex-wrap: wrap;
+  }
+  .cta-banner-left { display: flex; align-items: center; gap: 24px; }
+  .cta-rocket {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: rgba(255,255,255,.15);
+    display: flex; align-items: center; justify-content: center; font-size: 26px;
+    flex-shrink: 0;
+  }
+  .cta-banner-left h3 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+  .cta-banner-left p  { font-size: 13px; color: rgba(255,255,255,.75); line-height: 1.5; }
+  .btn-cta-specialist {
+    background: #fff; color: var(--blue); font: 700 13px var(--font);
+    padding: 13px 28px; border-radius: 5px; text-decoration: none; white-space: nowrap;
+    display: flex; align-items: center; gap: 8px; transition: opacity .2s;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .btn-cta-specialist:hover { opacity: .9; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark); padding: 60px 48px 0;
+    border-top: 1px solid rgba(255,255,255,.06);
+  }
+  .footer-top {
+    display: grid; grid-template-columns: 280px repeat(4, 1fr); gap: 48px;
+    padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+  .footer-brand p { font-size: 12px; color: rgba(255,255,255,.45); line-height: 1.7; margin: 16px 0 20px; }
+  .social-links { display: flex; gap: 10px; }
+  .social-links a {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,.08);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,.6); text-decoration: none; font-size: 13px;
+    transition: background .2s, color .2s;
+  }
+  .social-links a:hover { background: var(--blue); color: #fff; }
+
+  .footer-col h4 { font-size: 12px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 18px; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 10px; }
+  .footer-col ul li a { font-size: 12px; color: rgba(255,255,255,.45); text-decoration: none; transition: color .2s; }
+  .footer-col ul li a:hover { color: #fff; }
+
+  .contact-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px; }
+  .contact-item .icon { font-size: 14px; margin-top: 1px; color: var(--blue); flex-shrink: 0; }
+  .contact-item p { font-size: 12px; color: rgba(255,255,255,.45); line-height: 1.5; }
+
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 0; font-size: 11px; color: rgba(255,255,255,.3);
+    flex-wrap: wrap; gap: 10px;
+  }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { color: rgba(255,255,255,.3); text-decoration: none; }
+  .footer-links a:hover { color: rgba(255,255,255,.7); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) {
+    .services-grid { grid-template-columns: repeat(3,1fr); }
+    .services-grid .service-card:nth-child(3) { border-right: none; }
+    .services-grid .service-card:nth-child(4) { border-top: 1px solid var(--border); }
+    .services-grid .service-card:nth-child(5) { border-top: 1px solid var(--border); border-right: none; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 60px 24px; }
+    .hero-cloud { display: none; }
+    .section { padding: 60px 24px; }
+    .services-header { grid-template-columns: 1fr; gap: 20px; }
+    .services-grid { grid-template-columns: repeat(2,1fr); }
+    .why-inner { grid-template-columns: 1fr; gap: 40px; }
+    .partners-inner { grid-template-columns: 1fr; gap: 20px; }
+    .cases { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .cta-banner { padding: 40px 24px; }
+  }
+  @media (max-width: 600px) {
+    .stats-bar { padding: 24px; gap: 24px; justify-content: flex-start; }
+    .services-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
+    .cases { padding: 60px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav>
+  <a href="#" class="logo">
+    <div class="logo-icon">GBX</div>
+    <div class="logo-text">
+      <span>GBX</span>
+      <span>TECH</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#" class="active">Inicio</a></li>
+    <li><a href="#">Nosotros</a></li>
+    <li><a href="#">Servicios <span class="arrow">▾</span></a></li>
+    <li><a href="#">Soluciones <span class="arrow">▾</span></a></li>
+    <li><a href="#">Casos de Éxito</a></li>
+    <li><a href="#">Blog</a></li>
+  </ul>
+  <a href="#" class="btn-contact">Contacto</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-grid"></div>
+
+  <!-- Decorative cloud SVG -->
+  <svg class="hero-cloud" viewBox="0 0 380 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="cg" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#0088ff" stop-opacity=".9"/>
+        <stop offset="100%" stop-color="#00c8ff" stop-opacity=".7"/>
+      </linearGradient>
+      <filter id="glow"><feGaussianBlur stdDeviation="6" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <!-- cloud body -->
+    <ellipse cx="190" cy="130" rx="140" ry="85" fill="url(#cg)" opacity=".15"/>
+    <ellipse cx="145" cy="148" rx="90" ry="60" fill="url(#cg)" opacity=".2"/>
+    <ellipse cx="240" cy="145" rx="100" ry="65" fill="url(#cg)" opacity=".2"/>
+    <ellipse cx="190" cy="120" rx="120" ry="70" fill="url(#cg)" opacity=".12"/>
+    <!-- glowing outline cloud -->
+    <path d="M90 170 Q60 170 60 140 Q60 110 90 105 Q85 65 120 60 Q140 40 170 55 Q180 35 210 38 Q250 30 265 65 Q300 60 310 90 Q335 95 330 125 Q330 155 300 160 Z"
+      fill="none" stroke="url(#cg)" stroke-width="2.5" filter="url(#glow)" opacity=".9"/>
+    <!-- data lines -->
+    <line x1="120" y1="220" x2="120" y2="270" stroke="#00aaff" stroke-width="1.5" opacity=".5"/>
+    <line x1="190" y1="200" x2="190" y2="290" stroke="#00aaff" stroke-width="1.5" opacity=".5"/>
+    <line x1="260" y1="215" x2="260" y2="275" stroke="#00aaff" stroke-width="1.5" opacity=".5"/>
+    <circle cx="120" cy="270" r="4" fill="#00aaff" opacity=".7"/>
+    <circle cx="190" cy="290" r="4" fill="#00aaff" opacity=".7"/>
+    <circle cx="260" cy="275" r="4" fill="#00aaff" opacity=".7"/>
+    <!-- hexagon grid overlay -->
+    <circle cx="150" cy="95" r="6" fill="#00c8ff" opacity=".4"/>
+    <circle cx="190" cy="80" r="4" fill="#0088ff" opacity=".5"/>
+    <circle cx="230" cy="90" r="5" fill="#00c8ff" opacity=".4"/>
+    <circle cx="270" cy="110" r="4" fill="#0066ff" opacity=".5"/>
+    <!-- lock icon -->
+    <rect x="174" y="125" width="32" height="24" rx="4" fill="#0066ff" opacity=".8"/>
+    <path d="M180 125 Q180 110 190 110 Q200 110 200 125" fill="none" stroke="#0066ff" stroke-width="3" opacity=".8"/>
+    <circle cx="190" cy="137" r="3" fill="#fff" opacity=".9"/>
+  </svg>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Transformamos Tecnología</p>
+    <h1>
+      EN RESULTADOS<br>
+      PARA <span class="accent">TU NEGOCIO</span>
+    </h1>
+    <p>Soluciones modernas en Microsoft 365, Azure, Ciberseguridad y Comunicaciones que impulsan la productividad, protegen tu información y optimizan tus operaciones.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn-primary">Conoce nuestros servicios →</a>
+      <a href="#" class="btn-outline">Hablemos de tu proyecto</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS BAR ── -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-icon">🛡️</div>
+    <div class="stat-info">
+      <div class="number">99.9%</div>
+      <div class="label">Disponibilidad<br>Garantizada</div>
+    </div>
+  </div>
+  <div class="stat">
+    <div class="stat-icon">🎧</div>
+    <div class="stat-info">
+      <div class="number">24/7</div>
+      <div class="label">Soporte y Monitoreo<br>Especializado</div>
+    </div>
+  </div>
+  <div class="stat">
+    <div class="stat-icon">👥</div>
+    <div class="stat-info">
+      <div class="number">+10</div>
+      <div class="label">Soluciones<br>Especializadas</div>
+    </div>
+  </div>
+  <div class="stat">
+    <div class="stat-icon">☁️</div>
+    <div class="stat-info">
+      <div class="number">100%</div>
+      <div class="label">Comprometidos con<br>tu Éxito</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SERVICES ── -->
+<section class="section" style="background:#fff;">
+  <div class="services-header">
+    <div>
+      <p class="section-eyebrow">Nuestros Servicios</p>
+      <h2 class="section-title">Soluciones tecnológicas<br>para cada necesidad</h2>
+    </div>
+    <div>
+      <p class="section-body">Ofrecemos un portafolio integral de servicios diseñados para modernizar tu infraestructura, proteger tu información y mejorar la productividad de tu organización.</p>
+    </div>
+  </div>
+
+  <div class="services-grid">
+    <!-- Microsoft 365 -->
+    <div class="service-card">
+      <div class="svc-icon svc-m365">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+          <rect x="2" y="2" width="9" height="9" rx="1" fill="#f25022"/>
+          <rect x="13" y="2" width="9" height="9" rx="1" fill="#7fba00"/>
+          <rect x="2" y="13" width="9" height="9" rx="1" fill="#00a4ef"/>
+          <rect x="13" y="13" width="9" height="9" rx="1" fill="#ffb900"/>
+        </svg>
+      </div>
+      <h3>Microsoft 365</h3>
+      <ul>
+        <li>Implementación y Setup</li>
+        <li>Migración de Correos</li>
+        <li>Gestión y Soporte</li>
+        <li>Optimización de Licencias</li>
+      </ul>
+      <a href="#" class="ver-mas">Ver más →</a>
+    </div>
+
+    <!-- Microsoft Azure -->
+    <div class="service-card">
+      <div class="svc-icon svc-azure">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+          <path d="M13.5 2L6 14h6l-2 8 8.5-12H13l2.5-8z"/>
+        </svg>
+      </div>
+      <h3>Microsoft Azure</h3>
+      <ul>
+        <li>Infraestructura Cloud</li>
+        <li>Migración de Servidores</li>
+        <li>Arquitecturas Híbridas</li>
+        <li>Consultoría y FinOps</li>
+      </ul>
+      <a href="#" class="ver-mas">Ver más →</a>
+    </div>
+
+    <!-- Ciberseguridad -->
+    <div class="service-card">
+      <div class="svc-icon svc-sec">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+          <path d="M12 2L4 6v6c0 5.1 3.4 9.8 8 11 4.6-1.2 8-5.9 8-11V6l-8-4zm-1 13l-3-3 1.4-1.4L11 12.2l4.6-4.6L17 9l-6 6z"/>
+        </svg>
+      </div>
+      <h3>Ciberseguridad</h3>
+      <ul>
+        <li>MFA y Acceso Condicional</li>
+        <li>Protección Avanzada</li>
+        <li>Protección de Datos</li>
+        <li>Monitoreo y Cumplimiento</li>
+      </ul>
+      <a href="#" class="ver-mas">Ver más →</a>
+    </div>
+
+    <!-- Backup & Recuperación -->
+    <div class="service-card">
+      <div class="svc-icon svc-bk">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+          <path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+          <path d="M12 13v4" stroke="#0d6efd" stroke-width="2"/>
+          <path d="M9 15l3-3 3 3" stroke="#0d6efd" stroke-width="2"/>
+        </svg>
+      </div>
+      <h3>Backup &amp; Recuperación</h3>
+      <ul>
+        <li>Exchange Online</li>
+        <li>OneDrive y SharePoint</li>
+        <li>Microsoft Teams</li>
+        <li>Recuperación ante Ransomware</li>
+      </ul>
+      <a href="#" class="ver-mas">Ver más →</a>
+    </div>
+
+    <!-- Comunicaciones Unificadas -->
+    <div class="service-card">
+      <div class="svc-icon svc-uc">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+          <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/>
+        </svg>
+      </div>
+      <h3>Comunicaciones Unificadas</h3>
+      <ul>
+        <li>Microsoft Teams Phone</li>
+        <li>Cisco Webex Calling</li>
+        <li>Integración SIP / PBX</li>
+        <li>Troncales y Operadoras</li>
+      </ul>
+      <a href="#" class="ver-mas">Ver más →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY GBX TECH ── -->
+<section class="why-section">
+  <div class="why-inner">
+    <div class="why-left">
+      <p class="section-eyebrow">¿Por qué elegir GBX Tech?</p>
+      <h2>Tu aliado estratégico<br>en tecnología</h2>
+      <p>Combinamos experiencia, metodologías líderes y un equipo especializado para entregar soluciones seguras, escalables y alineadas a tus objetivos de negocio.</p>
+      <a href="#" class="btn-why">Conoce más sobre nosotros →</a>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🎯</div>
+        <h4>Enfoque en Resultados</h4>
+        <p>Soluciones que generan valor medible y retorno de inversión.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🏅</div>
+        <h4>Expertos Certificados</h4>
+        <p>Profesionales certificados en Microsoft y tecnologías líderes.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">☁️</div>
+        <h4>Tecnología Escalable</h4>
+        <p>Arquitecturas modernas que crecen junto a tu negocio.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⏰</div>
+        <h4>Soporte 24/7</h4>
+        <p>Monitoreo y soporte especializado todo el día, todos los días.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔒</div>
+        <h4>Seguridad Primero</h4>
+        <p>Implementamos mejores prácticas y marcos de seguridad líderes.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📈</div>
+        <h4>Optimización de Costos</h4>
+        <p>Maximizamos la eficiencia de tu infraestructura y presupuesto TI.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PARTNERS ── -->
+<section class="partners">
+  <div class="partners-inner">
+    <div>
+      <p class="section-eyebrow">Nuestros Partners Tecnológicos</p>
+      <h2 class="section-title">Trabajamos con los líderes<br>de la industria</h2>
+    </div>
+    <div class="partners-right">
+      <p class="section-body">Alianzas estratégicas que nos permiten ofrecerte soluciones de clase mundial con el respaldo de los mejores.</p>
+    </div>
+  </div>
+  <div class="partner-logos">
+    <!-- Microsoft Solutions Partner -->
+    <div class="partner-logo">
+      <div class="ms-logo">
+        <span style="background:#f25022;"></span>
+        <span style="background:#7fba00;"></span>
+        <span style="background:#00a4ef;"></span>
+        <span style="background:#ffb900;"></span>
+      </div>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:#333;">Microsoft</div>
+        <div style="font-size:10px;color:#666;">Solutions Partner</div>
+      </div>
+    </div>
+
+    <!-- Azure -->
+    <div class="partner-logo">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+        <path d="M13.5 2L6 14h6l-2 8 8.5-12H13l2.5-8z" fill="#0072C6"/>
+      </svg>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:#333;">Microsoft</div>
+        <div style="font-size:10px;color:#666;">Azure</div>
+      </div>
+    </div>
+
+    <!-- Microsoft 365 -->
+    <div class="partner-logo">
+      <div class="ms-logo">
+        <span style="background:#f25022;"></span>
+        <span style="background:#7fba00;"></span>
+        <span style="background:#00a4ef;"></span>
+        <span style="background:#ffb900;"></span>
+      </div>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:#333;">Microsoft 365</div>
+      </div>
+    </div>
+
+    <!-- Cisco -->
+    <div class="partner-logo">
+      <svg width="60" height="28" viewBox="0 0 80 30" fill="none">
+        <text x="0" y="22" font-size="20" font-weight="800" fill="#049FD9" font-family="Arial">cisco</text>
+        <text x="0" y="30" font-size="8" fill="#555" font-family="Arial">Partner</text>
+        <g fill="#049FD9">
+          <rect x="62" y="5" width="4" height="14" rx="2"/>
+          <rect x="68" y="2" width="4" height="20" rx="2"/>
+          <rect x="74" y="5" width="4" height="14" rx="2"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Veeam -->
+    <div class="partner-logo">
+      <div>
+        <div style="font-size:18px;font-weight:900;color:#00b336;letter-spacing:-1px;">VEEAM</div>
+        <div style="font-size:9px;color:#666;">Value-Added Reseller</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CASOS DE ÉXITO ── -->
+<section class="cases">
+  <div class="cases-left">
+    <p class="section-eyebrow">Casos de Éxito</p>
+    <h2>Impulsamos empresas<br>hacia el futuro</h2>
+    <p>Conoce cómo hemos ayudado a organizaciones a transformar su infraestructura y alcanzar sus objetivos tecnológicos.</p>
+    <a href="#" class="btn-cases">Ver casos de éxito →</a>
+  </div>
+  <div class="cases-right">
+    <div class="testimonial-card">
+      <div class="quote-mark">"</div>
+      <p>GBX Tech nos ayudó a migrar toda nuestra plataforma a Microsoft 365 y Azure. Hoy contamos con mayor seguridad, disponibilidad y productividad.</p>
+      <cite>Gerente de TI, Empresa de Servicios Financieros</cite>
+      <div class="testimonial-dots">
+        <span class="active"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA BANNER ── -->
+<div class="cta-banner">
+  <div class="cta-banner-left">
+    <div class="cta-rocket">🚀</div>
+    <div>
+      <h3>¿Listo para transformar tu tecnología?</h3>
+      <p>Hablemos sobre cómo podemos ayudar a tu empresa a ser más segura,<br>eficiente y competitiva con nuestras soluciones.</p>
+    </div>
+  </div>
+  <a href="#" class="btn-cta-specialist">Contactar a un especialista →</a>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-top">
+    <!-- Brand -->
+    <div class="footer-brand">
+      <a href="#" class="logo">
+        <div class="logo-icon">GBX</div>
+        <div class="logo-text">
+          <span>GBX</span>
+          <span>TECH</span>
+        </div>
+      </a>
+      <p>Soluciones tecnológicas que impulsan la innovación, protegen tu información y maximizan el potencial de tu negocio.</p>
+      <div class="social-links">
+        <a href="#">in</a>
+        <a href="#">f</a>
+        <a href="#">▶</a>
+        <a href="#">▪</a>
+      </div>
+    </div>
+
+    <!-- Servicios -->
+    <div class="footer-col">
+      <h4>Servicios</h4>
+      <ul>
+        <li><a href="#">Microsoft 365</a></li>
+        <li><a href="#">Microsoft Azure</a></li>
+        <li><a href="#">Ciberseguridad</a></li>
+        <li><a href="#">Backup &amp; Recuperación</a></li>
+        <li><a href="#">Comunicaciones Unificadas</a></li>
+      </ul>
+    </div>
+
+    <!-- Soluciones -->
+    <div class="footer-col">
+      <h4>Soluciones</h4>
+      <ul>
+        <li><a href="#">Infraestructura Cloud</a></li>
+        <li><a href="#">Escritorios Virtuales</a></li>
+        <li><a href="#">Seguridad Gestionada</a></li>
+        <li><a href="#">Migración y Modernización</a></li>
+        <li><a href="#">Consultoría TI</a></li>
+      </ul>
+    </div>
+
+    <!-- Recursos -->
+    <div class="footer-col">
+      <h4>Recursos</h4>
+      <ul>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Casos de Éxito</a></li>
+        <li><a href="#">Documentos</a></li>
+        <li><a href="#">Soporte</a></li>
+        <li><a href="#">Políticas</a></li>
+      </ul>
+    </div>
+
+    <!-- Contáctanos -->
+    <div class="footer-col">
+      <h4>Contáctanos</h4>
+      <div class="contact-item">
+        <span class="icon">✉</span>
+        <p>info@gbxtech.com</p>
+      </div>
+      <div class="contact-item">
+        <span class="icon">📞</span>
+        <p>+1 (555) 123-4567</p>
+      </div>
+      <div class="contact-item">
+        <span class="icon">🌐</span>
+        <p>www.gbxtech.com</p>
+      </div>
+      <div class="contact-item">
+        <span class="icon">🕐</span>
+        <p>Horario de Atención:<br>Lunes a Viernes 8:00 – 18:00</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2024 GBX Tech. Todos los derechos reservados.</p>
+    <div class="footer-links">
+      <a href="#">Política de Privacidad</a>
+      <a href="#">Términos de Uso</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
