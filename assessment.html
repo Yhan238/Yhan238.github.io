@@ -23,12 +23,16 @@
             </a>
             <!-- Menú de Navegación -->
             <nav class="hidden md:flex items-center gap-8">
-                <a href="index.html" class="text-base font-semibold text-slate-300 hover:text-white transition">Inicio</a>
-                <a href="nosotros.html" class="text-base font-semibold text-slate-300 hover:text-white transition">Nosotros</a>
-                <a href="#" class="text-base font-semibold text-white border-b-2 border-blue-500 pb-1 flex items-center gap-1 transition">Servicios <i class="fa-solid fa-chevron-down text-xs opacity-70"></i></a>
-                <a href="#" class="text-base font-semibold text-slate-300 hover:text-white flex items-center gap-1 transition">Soluciones <i class="fa-solid fa-chevron-down text-xs opacity-70"></i></a>
-                <a href="#" class="text-base font-semibold text-slate-300 hover:text-white transition">Casos de Éxito</a>
-                <a href="#" class="text-base font-semibold text-slate-300 hover:text-white transition">Blog</a>
+                <a href="/" class="text-blue-500 border-b-2 border-blue-500 pb-1">Inicio</a>
+                <a href="nosotros.html" class="hover:text-white transition">Nosotros</a>
+                <!--<a href="#nostros" class="hover:text-white transition">Servicios <i class="fa-solid fa-chevron-down text-[10px] ml-1"></i></a>-->
+                <div class="relative group"> Servicios <i class="fa-solid fa-chevron-down text-[10px] ml-1"></i>
+                    <div class="absolute left-0 mt-2 w-32 bg-slate-400 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300"><a href="assessment.html" class="hover:text-white transition">Assessment</a>
+                    </div>
+                </div>
+                <a href="#servicios" class="hover:text-white transition">Soluciones <i class="fa-solid fa-chevron-down text-[10px] ml-1"></i></a>
+                <!-- <a href="#" class="hover:text-white transition">Casos de Éxito</a>-->
+                <a href="https://www.linkedin.com/company/gbx-tech/" target="_blank" class="hover:text-white transition">LinkedIn</a>
             </nav>
             <!-- Botón Contacto -->
             <div class="hidden md:block">
