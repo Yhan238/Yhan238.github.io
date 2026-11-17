@@ -1,0 +1,50 @@
+/* GBX TECH — estilos de marca compartidos (ver GBX_Guia_Estilo_Marca.md) */
+:root{
+  --gbx-fondo:#060A14; --gbx-panel:#0B1220; --gbx-tarjeta:#101B33; --gbx-borde:#1C2A47;
+  --gbx-azul:#2F6FED; --gbx-azul-claro:#6C9BFF; --gbx-cian:#4DE8F0;
+  --gbx-tinta:#EDF1F9; --gbx-texto-2:#8FA0BE; --gbx-texto-3:#5B6B85;
+  --gbx-marino:#021937; --gbx-azul-gbx:#0B6BE6; --gbx-celeste:#5FB3FF;
+  --gbx-gris-fondo:#F4F7FB; --gbx-tinte:#E8F1FD; --gbx-borde-claro:#B8C6D9;
+  --gbx-font-titulo:'Space Grotesk',Arial,sans-serif;
+  --gbx-font-texto:'Inter','Segoe UI',Arial,sans-serif;
+  --gbx-font-mono:'JetBrains Mono',Consolas,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{margin:0;background:var(--gbx-fondo);color:var(--gbx-tinta);font-family:var(--gbx-font-texto);-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+a{color:var(--gbx-azul-claro);text-decoration:none}
+a:hover{color:var(--gbx-tinta)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--gbx-cian);outline-offset:3px}
+.tex-malla{background:var(--gbx-fondo) url(/img/texturas/malla.webp) center/cover no-repeat}
+.tex-plano{background:var(--gbx-panel) url(/img/texturas/plano.webp) center/cover no-repeat}
+.grad-x{background:linear-gradient(45deg,#0E47C1,#0985F0)}
+.bar{background:linear-gradient(90deg,#2F6FED,#6C9BFF)}
+.nav a{color:var(--gbx-texto-2)}
+.nav a:hover,.nav a[aria-current="page"]{color:var(--gbx-tinta)}
+.light a{color:var(--gbx-azul-gbx)}
+.light a:hover{color:var(--gbx-marino)}
+.jump a{color:var(--gbx-tinta)}
+.jump a:hover{color:var(--gbx-cian)}
+a.btn-primario,a.btn-primario:hover{color:#FFFFFF}
+a.btn-primario:hover{filter:brightness(1.12)}
+.wa-float,.wa-float:hover{color:#FFFFFF}
+.wa-float:hover{filter:brightness(1.06)}
+.carrusel-btn{transition:background .15s}
+.carrusel-btn:hover{filter:brightness(1.15)}
+
+/* Móvil */
+@media (max-width: 768px){
+  .h1{font-size:40px !important}
+  .h2{font-size:30px !important}
+  .nav-links{gap:16px !important;font-size:14px !important;width:100%;order:3}
+  .nav-cta{display:none !important}
+  .sec{padding-top:64px !important;padding-bottom:64px !important}
+  .wa-texto{display:none}
+  .wa-float{padding:14px !important}
+}
+
+/* Carrusel de eventos */
+.carrusel-item[hidden]{display:none !important}
+.carrusel-punto span{display:block;width:8px;height:8px;border-radius:50%;background:#3A4A66;transition:all .2s}
+.carrusel-punto[aria-current="true"] span{width:22px;height:6px;border-radius:3px;background:var(--gbx-cian)}
