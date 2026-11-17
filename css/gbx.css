@@ -55,3 +55,7 @@ a.btn-primario:hover{filter:brightness(1.12)}
 .cta-mail:hover b{text-decoration:underline}
 .light .cta-mail{color:#3D5170}
 .light .cta-mail b{color:var(--gbx-azul-gbx)}
+
+/* Ícono de LinkedIn en el pie de página */
+.social-li{color:var(--gbx-texto-2);transition:all .15s}
+.social-li:hover{color:#FFFFFF;background:#0A66C2 !important;border-color:#0A66C2 !important}
