@@ -59,3 +59,7 @@ a.btn-primario:hover{filter:brightness(1.12)}
 /* Ícono de LinkedIn en el pie de página */
 .social-li{color:var(--gbx-texto-2);transition:all .15s}
 .social-li:hover{color:#FFFFFF;background:#0A66C2 !important;border-color:#0A66C2 !important}
+
+/* Panel de 5 frentes en la portada */
+.hero-frente{transition:background .15s}
+.hero-frente:hover{background:rgba(47,111,237,.12)}
